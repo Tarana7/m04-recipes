@@ -108,8 +108,7 @@ The video says the core job of a logarithm is to **isolate the exponent**.
 2.  Verify in R: `log(32, base = 2)`
 3.  Why is this property useful when income values range from \$7,000 to \$455,000 in your dataset?
 
-```{r q1-1, eval=FALSE}
-# Your code here
+```{r q1-1}
 log(32, base = 2)
 ```
 
@@ -128,7 +127,7 @@ The video demonstrates: $\log(a \times b) = \log(a) + \log(b)$.
 1.  Verify using `a = 4`, `b = 8` (base 2) — compute both sides and confirm they are equal
 2.  In logistic regression, we multiply many small probabilities together. Explain in one sentence why the log property above makes this computationally safer.
 
-```{r q1-2, eval=FALSE}
+```{r q1-2}
 log(4 * 8, base = 2)
 log(4, base = 2) + log(8, base = 2)
 ```
@@ -149,7 +148,7 @@ Five customers' order values: \$10, \$20, \$80, \$40, \$1,000.
 2.  Compute the geometric mean: `exp(mean(log(x)))`
 3.  Which better represents the "typical" customer — and why does the \$1,000 order distort the arithmetic mean more?
 
-```{r q1-3, eval=FALSE}
+```{r q1-3}
 orders <- c(10, 20, 80, 40, 1000)
 mean(orders)
 exp(mean(log(orders)))
@@ -171,7 +170,7 @@ The video explains $\log(0)$ is undefined (negative infinity).
 2.  Your Week 2 recipe uses `step_log(..., offset = 1)`. Explain in one sentence why this offset is necessary.
 3.  What is `log(0 + 1)`? Why is adding 1 a safe lower bound?
 
-```{r q1-4, eval=FALSE}
+```{r q1-4}
 log(0)
 log(0 + 1)
 ```
@@ -192,7 +191,7 @@ The video notes that base 2, base 10, and natural log all follow the same rules 
 2.  Divide `log()` by `log10()` — what constant do you get?
 3.  After `step_normalize()` is applied in the recipe, does it matter which base was used for `step_log()`? Explain why or why not.
 
-```{r q1-5, eval=FALSE}
+```{r q1-5}
 income_val <- 49021
 log(income_val, base = 2)
 log10(income_val)
@@ -226,7 +225,7 @@ In `mail_data`, 142 customers responded ("yes") out of 3,000 total.
 2.  Compute the **odds** of responding: $\text{Odds} = \frac{\text{yes}}{\text{no}} = \frac{P}{1 - P}$
 3.  In plain English, what does an odds of 0.05 mean for a marketer trying to interpret campaign response?
 
-```{r q2-1, eval=FALSE}
+```{r q2-1}
 yes <- 142
 no <- 3000 - 142
 
@@ -259,7 +258,7 @@ The video shows you can derive odds from probabilities using $\text{Odds} = \fra
 3.  If a customer has an 80% chance, what are their odds?
 4.  What pattern do you notice? What happens to odds as probability approaches 1?
 
-```{r q2-2, eval=FALSE}
+```{r q2-2}
 prob_to_odds <- function(p) p / (1 - p)
 
 prob_to_odds(0.20)
@@ -285,7 +284,7 @@ The video explains that odds are **asymmetric**: odds against an event range 0 t
 2.  Verify that `log(odds)` at $P = 0.50$ equals exactly 0 — why does this make sense intuitively?
 3.  Are the log(odds) values symmetric around 0? What does this symmetry mean for modeling?
 
-```{r q2-3, eval=FALSE}
+```{r q2-3}
 probs <- c(0.10, 0.50, 0.90)
 odds <- probs / (1 - probs)
 log_odds <- log(odds)
@@ -311,7 +310,7 @@ $$\text{logit}(P) = \log\left(\frac{P}{1-P}\right)$$
 2.  Convert it to log(odds) using the formula above
 3.  In your Week 2 recipe, the model output `.pred_yes` is a probability. Write the R code to convert it to log(odds).
 
-```{r q2-4, eval=FALSE}
+```{r q2-4}
 # Overall response rate
 p_respond <- mean(mail_data$responded == "yes")
 p_respond
@@ -362,7 +361,7 @@ In `mail_data`, compare the odds of responding for **Gold** loyalty tier custome
 3.  Compute the odds ratio: Gold odds ÷ Bronze odds
 4.  Is Gold tier a stronger or weaker predictor of response than Bronze?
 
-```{r q3-1, eval=FALSE}
+```{r q3-1}
 tier_summary <- mail_data |>
   group_by(loyalty_tier) |>
   summarise(
@@ -405,7 +404,7 @@ The video explains that odds ratios are asymmetric: values below 1 (negative ass
 
 3.  A log(OR) of zero represents no association because an odds ratio of 1 means the two groups have equal odds.
 
-```{r q3-2, eval=FALSE}
+```{r q3-2}
 # Log odds ratio
 log(OR)
 
@@ -424,7 +423,7 @@ Compute odds ratios for all four loyalty tiers against Bronze as the reference, 
 2.  Which has the weakest?
 3.  How would you communicate the strongest result to a non-technical marketing manager in one sentence?
 
-```{r q3-3, eval=FALSE}
+```{r q3-3}
 tier_summary |>
   mutate(OR_vs_bronze = odds / bronze_odds, log_OR = log(OR_vs_bronze)) |>
   arrange(desc(abs(log_OR)))
@@ -449,7 +448,7 @@ Using Gold vs. Bronze customers from `mail_data`:
 3.  What does the p-value tell you? Is the Gold/Bronze difference statistically significant at the 0.05 level?
 4.  When would you prefer Fisher's Exact Test over a chi-square test?
 
-```{r q3-4, eval=FALSE}
+```{r q3-4}
 gold_bronze <- mail_data |>
   filter(loyalty_tier %in% c("Gold", "Bronze"))
 
@@ -475,7 +474,7 @@ The video explains the **chi-square test** compares observed values to expected 
 2.  Compare the p-value to Fisher's Exact Test — are the conclusions the same?
 3.  The video notes chi-square works well for **larger datasets**. With 3,000 rows in `mail_data`, which test is more appropriate — and why?
 
-```{r q3-5, eval=FALSE}
+```{r q3-5}
 chisq.test(ct)
 ```
 
@@ -550,7 +549,7 @@ $$P = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}$$
 
 1.  In R, `plogis()` computes this function. Evaluate it at inputs of −3, 0, and 3:
 
-```{r q4-2, eval=FALSE}
+```{r q4-2}
 plogis(-3) # very negative linear predictor
 plogis(0) # at zero
 plogis(3) # very positive linear predictor
@@ -595,7 +594,7 @@ In the Week 2 notebook, `augment()` returns both `.pred_yes` (a probability) and
 2.  The default threshold for `.pred_class` is 0.5. Given the 4.7% response rate, why might 0.5 be a poor threshold for a direct-mail campaign?
 3.  What threshold might make more business sense — and what metric from Week 3 would you use to evaluate the impact of changing it?
 
-```{r q4-4, eval=FALSE}
+```{r q4-4}
 library(tidymodels)
 tidymodels_prefer()
 
@@ -649,7 +648,7 @@ The video mentions that logistic regression uses **Wald's tests** to evaluate wh
 2.  Run the code below to extract the model coefficients. Which predictors were shrunk to exactly zero by the Lasso?
 3.  Based on the video's explanation of what logistic regression coefficients represent (log odds ratios), interpret the sign of the `freq_12mo` coefficient in plain English.
 
-```{r q4-5, eval=FALSE}
+```{r q4-5}
 # Extract Lasso coefficients
 mail_fit |>
   extract_fit_parsnip() |>

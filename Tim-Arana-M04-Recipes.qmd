@@ -21,6 +21,7 @@ execute:
   message: false
   freeze: true
 ---
+
 library(tidymodels)
 
 # Introduction
@@ -36,7 +37,7 @@ This report is organized according to the assignment prompts and includes writte
 This quiz covers four StatQuest videos that build the conceptual foundation for logistic regression — the model you fitted in the Week 2 notebook. Answer each question after watching the corresponding video.
 
 | Step | Video | Link |
-|-------------------|-----------------------|------------------------------|
+|----|----|----|
 | 1-1 | Logs (Logarithms), Clearly Explained!!! | <https://www.youtube.com/watch?v=VSi0Z04fWj0> |
 | 1-2 | Odds and Log(Odds), Clearly Explained!!! | <https://www.youtube.com/watch?v=ARfXDSkQf1Y> |
 | 1-3 | Odds Ratios and Log(Odds Ratios), Clearly Explained!!! | <https://www.youtube.com/watch?v=8nm0G-1uJzA> |
@@ -784,11 +785,11 @@ log10(233070)
 
 ### Response
 
-1. The natural log and the base-10 log of 233,070 produce different values because they use different logarithm bases.
+1.  The natural log and the base-10 log of 233,070 produce different values because they use different logarithm bases.
 
-2. Both transformations compress the large income value into a smaller scale, making it easier to analyze and model.
+2.  Both transformations compress the large income value into a smaller scale, making it easier to analyze and model.
 
-3. The recipe uses `base = 10` because it is easier to interpret, but either base would work since the data are normalized afterward.
+3.  The recipe uses `base = 10` because it is easier to interpret, but either base would work since the data are normalized afterward.
 
 ------------------------------------------------------------------------
 
@@ -824,13 +825,13 @@ exp(10.8 + 0.6^2 / 2)
 
 ### Response
 
-1. Using `exp(10.8)` converts the log-scale median back into dollars.
+1.  Using `exp(10.8)` converts the log-scale median back into dollars.
 
-2. Using `exp(10.98)` converts the log-scale mean back into dollars.
+2.  Using `exp(10.98)` converts the log-scale mean back into dollars.
 
-3. The calculated values match the formulas because `exp()` is the inverse of the logarithm.
+3.  The calculated values match the formulas because `exp()` is the inverse of the logarithm.
 
-4. The mean is higher than the median because the income distribution is right-skewed. A small number of customers with very high incomes increase the average more than the median.
+4.  The mean is higher than the median because the income distribution is right-skewed. A small number of customers with very high incomes increase the average more than the median.
 
 ------------------------------------------------------------------------
 
@@ -865,13 +866,13 @@ median_income * GSD
 
 ### Response
 
-1. The geometric standard deviation is calculated with `exp(0.6)`, which is about **1.82**.
+1.  The geometric standard deviation is calculated with `exp(0.6)`, which is about **1.82**.
 
-2. Using the median income of about $49,021, the lower bound is about **$26,935** and the upper bound is about **$89,218**.
+2.  Using the median income of about \$49,021, the lower bound is about **\$26,935** and the upper bound is about **\$89,218**.
 
-3. This matches the shaded green band from the Week 2 plot because the range is based on multiplying and dividing by the GSD.
+3.  This matches the shaded green band from the Week 2 plot because the range is based on multiplying and dividing by the GSD.
 
-4. In plain English, this tells a marketer that many typical customers have incomes within this range. It gives a better sense of the typical customer than using only the average income, which can be pulled upward by very high-income customers.
+4.  In plain English, this tells a marketer that many typical customers have incomes within this range. It gives a better sense of the typical customer than using only the average income, which can be pulled upward by very high-income customers.
 
 ------------------------------------------------------------------------
 
@@ -910,11 +911,11 @@ exp(10.8 + 0.6^2 / 2)
 
 ### Response
 
-1. The median and mean of the actual `income` variable are very close to the theoretical values, although they may differ slightly because the dataset is a random sample.
+1.  The median and mean of the actual `income` variable are very close to the theoretical values, although they may differ slightly because the dataset is a random sample.
 
-2. The median and mean of `log_income` are also close to the theoretical values used to generate the data.
+2.  The median and mean of `log_income` are also close to the theoretical values used to generate the data.
 
-3. Applying `exp()` converts the log-scale values back to the original dollar scale. The values are close to the original summaries, but they are not exactly the same because the data are based on a finite sample and include random variation.
+3.  Applying `exp()` converts the log-scale values back to the original dollar scale. The values are close to the original summaries, but they are not exactly the same because the data are based on a finite sample and include random variation.
 
 ------------------------------------------------------------------------
 
@@ -950,14 +951,15 @@ logs_tbl |>
 
 ### Response
 
-1. The natural log and base-10 log produce different numerical values, but they describe the same relationship.
+1.  The natural log and base-10 log produce different numerical values, but they describe the same relationship.
 
-2. Dividing the natural log by the base-10 log produces a constant of approximately **2.3026**, which is equal to `log(10)`.
+2.  Dividing the natural log by the base-10 log produces a constant of approximately **2.3026**, which is equal to `log(10)`.
 
-3. Since the two log scales differ only by a constant, either base can be used for preprocessing.
+3.  Since the two log scales differ only by a constant, either base can be used for preprocessing.
 
-4. After `step_normalize()`, the values are centered and scaled, so the difference between using natural log and base-10 log is effectively removed.
-------------------------------------------------------------------------
+4.  
+
+    ## After `step_normalize()`, the values are centered and scaled, so the difference between using natural log and base-10 log is effectively removed.
 
 # Summary
 
@@ -998,8 +1000,7 @@ bind_rows(
 
 ### Response
 
-Changing the split from 80/20 to 70/30 moved more observations into the testing dataset while reducing the size of the training dataset. Because stratified sampling was used, the response rate remained very similar in both datasets, ensuring that both sets represent the original distribution of responders.
-------------------------------------------------------------------------
+## Changing the split from 80/20 to 70/30 moved more observations into the testing dataset while reducing the size of the training dataset. Because stratified sampling was used, the response rate remained very similar in both datasets, ensuring that both sets represent the original distribution of responders.
 
 # Preprocessing Exercises
 
@@ -1122,6 +1123,7 @@ preds_no_norm <-
 preds_no_norm |>
   roc_auc(truth = responded, .pred_yes)
 ```
+
 ### Response
 
 Removing `step_normalize()` may reduce model performance because Lasso regression is sensitive to differences in variable scales. Normalization helps place predictors on the same scale, allowing the penalty to be applied fairly across all variables.
@@ -1214,10 +1216,10 @@ mail_prep_no_id <- prep(mail_rec_no_id)
 
 bake(mail_prep_no_id, new_data = NULL)
 ```
+
 ### Response
 
 Without assigning `customer_id` the ID role, it is treated as a predictor and appears in the baked data. Since customer IDs are only unique identifiers and contain no meaningful information about customer behavior, they should not be used as predictors because they can add unnecessary complexity without improving model performance.
-------------------------------------------------------------------------
 
 # Summary
 
@@ -1234,6 +1236,7 @@ Without assigning `customer_id` the ID role, it is treated as a predictor and ap
 | Estimate steps        | `prep()`               | `training = train`         |
 | Apply steps           | `bake()`               | `new_data = test`          |
 | Bundle recipe + model | `workflow()`           | —                          |
+
 # Appendix
 
 ## Published Report
